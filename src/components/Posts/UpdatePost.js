@@ -80,13 +80,19 @@ const UpdatePost = () => {
               {/* <h1 class="text-2xl md:text-3xl text-coolGray-900 font-bold text-center p-8">
                 Let's Get Started
               </h1> */}
-              <button onClick={cancelUpdateTargetHandler}>
-                <CgCloseO className=" ml-2 mt-2" size={20} />
+              <button
+                className="ml-56 mb-5"
+                onClick={cancelUpdateTargetHandler}
+              >
+                ❌
               </button>
               <p className="italic p-8 text-base md:text-sm text-red-500 font-medium text-center">
                 (Note: Leave boxes empty if it doesn't need to be updated)
               </p>
-              <form class="w-full px-16 py-10 pt-0" onSubmit={handleSubmit}>
+              <form
+                class="w-full px-3 md:px-16 py-10 pt-0"
+                onSubmit={handleSubmit}
+              >
                 <div className="pt-5">
                   <span className="mb-1 text-coolGray-800 font-medium">
                     Make / Brand / Model

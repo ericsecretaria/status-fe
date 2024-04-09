@@ -80,11 +80,14 @@ const AddPost = () => {
       <section class="bg-white">
         <div class="flex flex-col items-center justify-center mx-auto md:h-screen top-0">
           <div class="bg-white rounded-lg shadow shadow-2xl dark:border md:mt-24 dark:border-coolGray-700">
-            <div class="md:p-18">
-              <h1 class="text-2xl md:text-3xl text-coolGray-900 font-bold text-center p-8">
+            <div>
+              <h1 class="text-3xl text-coolGray-900 font-bold text-center p-8">
                 Let's Get Started
               </h1>
-              <form class="w-full px-16 py-10 pt-0" onSubmit={handleSubmit}>
+              <form
+                class="w-full px-3 md:px-16 py-10 pt-0"
+                onSubmit={handleSubmit}
+              >
                 <div className="pt-5">
                   <span className="mb-1 text-coolGray-800 font-medium">
                     Make / Brand / Model

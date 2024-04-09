@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="text-center">
-        <h1 className="mx-auto max-w-4xl font-display text-9xl font-bold tracking-normal text-slate-900 lg:text-[150px]">
+        <h1 className="mx-auto font-bold text-8xl md:text-9xl">
           <span className="relative whitespace-nowrap ">
             <svg
               aria-hidden="true"
@@ -21,16 +21,16 @@ const Hero = () => {
         <p className="mx-auto mt-12 max-w-xl text-md text-slate-700 leading-7">
           Keeping you on track.
         </p>
-        <div className="flex justify-center space-x-5 mt-20">
+        <div className="flex justify-center space-x-5 mt-5 md:mt-20">
           <Link
             to={"/register"}
-            className="bg-white w-6/12 rounded-xl text-black font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-black/10 border-solid border-4 border-gray-600"
+            className="bg-white w-7/12 md:w-6/12 rounded-xl text-black font-medium px-1 md:px-4 py-3 mt-10 hover:bg-black/10 border-solid border-4 border-gray-600"
           >
             Not yet Registered?
           </Link>
           <Link
             to={"/login"}
-            className="bg-lime-500 w-4/12 rounded-xl text-white font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-lime-400"
+            className="bg-lime-500 w-4/12 rounded-xl text-white font-medium px-0 py-3 mt-10 hover:bg-lime-400"
           >
             Login
           </Link>

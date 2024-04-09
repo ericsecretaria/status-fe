@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-
 import "tailwindcss/tailwind.css";
 import { updateUserProfileAction } from "../../redux/slices/users/usersSlices";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccessMsg from "../Alert/SuccessMsg";
-import { CgCloseO } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
 const UpdateUser = () => {
@@ -54,13 +52,12 @@ const UpdateUser = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center min-h-screen bg-gray-50"
+        className="flex flex-col items-center justify-center bg-gray-50 mx-auto h-screen"
       >
-        <div className="w-96 p-6 bg-white rounded-xl shadow-md">
-          <button onClick={cancelUpdateProfileHandler}>
-            <CgCloseO className="mb-5" size={20} />
+        <div className="text-center px-5 py-5 md:max-w-md mx-auto rounded-xl shadow-md">
+          <button className="ml-56 mb-5" onClick={cancelUpdateProfileHandler}>
+            ❌
           </button>
-
           <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
             Update your Profile
           </h1>

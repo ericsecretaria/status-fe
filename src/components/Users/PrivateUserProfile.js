@@ -114,21 +114,15 @@ export default function PrivateUserProfile() {
                             </div>
                           </button>
                         )}
-                        <div className="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4">
+                        <div className="cursor-default flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4">
                           {/* Profile Views */}
-                          <button
-                            type="button"
-                            className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          >
+                          <div className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             <CgTrack size={20} />
                             Created Tracks ({profile?.user?.posts?.length})
-                          </button>
+                          </div>
 
                           {/* follow */}
-                          <button
-                            type="button"
-                            className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          >
+                          <div className="cursor-default inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             <svg
                               className="-ml-0.5 h-5 w-5 text-gray-400"
                               xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +136,7 @@ export default function PrivateUserProfile() {
                               />
                             </svg>
                             Followers ({profile?.user?.followers?.length})
-                          </button>
+                          </div>
                         </div>
                       </div>
                     </div>
