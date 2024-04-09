@@ -1,7 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { logoutAction } from "../../redux/slices/users/usersSlices";
+import { useDispatch } from "react-redux";
 
 const Hero = () => {
+  const dispatch = useDispatch();
+  dispatch(logoutAction());
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="text-center">
