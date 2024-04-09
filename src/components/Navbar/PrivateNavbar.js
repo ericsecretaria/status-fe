@@ -198,26 +198,14 @@ export default function PrivateNavbar() {
                 </div>
               </div>
               <div className="mt-3 z-40 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Disclosure.Button
-                  as="a"
-                  href="/user-profile"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
-                >
-                  Profile
+                <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">
+                  <Link to={"/user-profile"}>Profile</Link>
                 </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="/posts"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
-                >
-                  Businesses
+                <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">
+                  <Link to="/posts">Businesses</Link>
                 </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="update-profile"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
-                >
-                  Settings
+                <Disclosure.Button className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6">
+                  <Link to="/update-profile">Settings</Link>
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={logoutHandler}
