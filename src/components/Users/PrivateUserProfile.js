@@ -6,6 +6,7 @@ import {
 } from "../../redux/slices/users/usersSlices";
 import { useEffect } from "react";
 
+import { CgTrack } from "react-icons/cg";
 import { AiFillCamera } from "react-icons/ai";
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 import UserPosts from "./UserPosts";
@@ -22,9 +23,15 @@ export default function PrivateUserProfile() {
     dispatch(userPrivateProfileAction());
   }, [dispatch]);
 
-  const { user, loading, error, profile, userAuth, isEmailSent } = useSelector(
+  // const { user, loading, error, profile, userAuth, isEmailSent } = useSelector(
+  //   (state) => state?.users
+  // );
+  const { profile, userAuth, isEmailSent } = useSelector(
     (state) => state?.users
   );
+
+  const posts = useSelector((state) => state.users?.profile?.user?.posts || []);
+
   //! Send Account Verification Email Handler
   const sendAccountVerificationEmailHandler = () => {
     dispatch(sendAccountVerificationEmailAction());
@@ -113,27 +120,8 @@ export default function PrivateUserProfile() {
                             type="button"
                             className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                           >
-                            <svg
-                              className="-ml-0.5 h-5 w-5 text-gray-400"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                              />
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                            </svg>
-                            20
+                            <CgTrack size={20} />
+                            Created Tracks ({profile?.user?.posts?.length})
                           </button>
 
                           {/* follow */}
@@ -153,7 +141,7 @@ export default function PrivateUserProfile() {
                                 clipRule="evenodd"
                               />
                             </svg>
-                            Followers
+                            Followers ({profile?.user?.followers?.length})
                           </button>
                         </div>
                       </div>
@@ -179,6 +167,49 @@ export default function PrivateUserProfile() {
                         Date Joined:{" "}
                         {new Date(profile?.user?.createdAt).toDateString()}
                       </dt>
+                      <div className="grid grid-cols-2 gap-2 mt-5">
+                        {/* First column: "Business" or "Businesses" label */}
+                        <dt className="text-sm font-medium text-gray-500 mb-2">
+                          {posts.length <= 1 ? "Business:" : "Businesses:"}
+                        </dt>
+                        {/* Second column: "Origin" label */}
+                        <dt className="text-sm font-medium text-gray-500">
+                          Origin:
+                        </dt>
+                        {posts.length < 1 ? (
+                          <>
+                            {/* First column: Title */}
+                            <div className="flex mt-0">
+                              <dt className="text-sm font-medium text-gray-500 mr-2 italic">
+                                None
+                              </dt>
+                            </div>
+                            {/* Second column: Released */}
+                            <div className="flex mt-0">
+                              <dt className="text-sm font-medium text-gray-500 italic">
+                                None
+                              </dt>
+                            </div>
+                          </>
+                        ) : (
+                          posts.map((post) => (
+                            <>
+                              {/* First column: Title */}
+                              <div className="flex mt-0">
+                                <dt className="text-sm font-medium text-gray-500 mr-2">
+                                  {post.title}
+                                </dt>
+                              </div>
+                              {/* Second column: Released */}
+                              <div className="flex mt-0">
+                                <dt className="text-sm font-medium text-gray-500">
+                                  {post.released}
+                                </dt>
+                              </div>
+                            </>
+                          ))
+                        )}
+                      </div>
                     </div>
 
                     {/* <div className="sm:col-span-2">

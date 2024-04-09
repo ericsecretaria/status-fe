@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
+
 import { addPostAction } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccessMsg from "../Alert/SuccessMsg";
 import { uploadProfileImageAction } from "../../redux/slices/users/usersSlices";
+import { useNavigate } from "react-router-dom";
 
 const UploadProfileImage = () => {
+  const navigate = useNavigate();
   //fetch categories
   const dispatch = useDispatch();
   //! Error state
@@ -52,6 +54,11 @@ const UploadProfileImage = () => {
     }
   };
 
+  const redirectProfileImageHandler = () => {
+    navigate("/user-profile");
+    window.location.reload();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <form onSubmit={handleSubmit} className="w-full lg:w-1/2">
@@ -90,6 +97,7 @@ const UploadProfileImage = () => {
               Upload Image
             </button>
           )}
+          {success && redirectProfileImageHandler()}
         </div>
       </form>
     </div>

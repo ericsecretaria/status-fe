@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineLock } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPasswordAction } from "../../redux/slices/users/usersSlices";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingComponent from "../Alert/LoadingComponent";
 import SuccessMsg from "../Alert/SuccessMsg";
 import ErrorMsg from "../Alert/ErrorMsg";
@@ -42,6 +42,11 @@ export const PasswordReset = () => {
   //const user = useSelector((state) => state);
   //console.log(user); suppose to be state.users.userinfo but destructure it.
   const { loading, error, success } = useSelector((state) => state?.users);
+  const navigate = useNavigate();
+  if (success) {
+    navigate("/", { replace: true });
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -69,7 +74,7 @@ export const PasswordReset = () => {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+          <button className="w-full px-4 py-2 text-white bg-lime-500 rounded-lg hover:bg-lime-400 focus:outline-none">
             Reset Password
           </button>
         )}

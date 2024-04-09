@@ -67,15 +67,9 @@ export default function PublicUserProfile() {
                   <div className="relative">
                     <img
                       className="h-32 w-full object-cover lg:h-48"
-                      src={profile?.user?.coverImage}
-                      alt={profile?.user?.username}
+                      src={user?.user?.coverImage}
+                      alt={user?.user?.username}
                     />
-                    <button
-                      className="absolute top-0 right-0 m-4 p-2 rounded-full bg-white hover:bg-gray-200"
-                      aria-label="Upload cover image"
-                    >
-                      {/* <FiUpload className="w-5 h-5 text-gray-800" /> */}
-                    </button>
                   </div>
 
                   <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -83,15 +77,9 @@ export default function PublicUserProfile() {
                       <div className="relative flex">
                         <img
                           className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                          src={profile?.user?.profilePicture}
-                          alt={profile?.user?.username}
+                          src={user?.user?.profilePicture}
+                          alt={user?.user?.username}
                         />
-                        <button
-                          className="absolute bottom-0 right-0 mb-4 mr-4 p-2 rounded-full bg-white hover:bg-gray-200"
-                          aria-label="Upload user image"
-                        >
-                          {/* <FiUpload className="w-5 h-5 text-gray-800" /> */}
-                        </button>
                       </div>
 
                       <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">

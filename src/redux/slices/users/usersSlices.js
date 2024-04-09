@@ -89,7 +89,7 @@ export const userPublicProfileAction = createAsyncThunk(
 
 //! --------------- Get User Private Profile Action
 export const userPrivateProfileAction = createAsyncThunk(
-  "users/user-private-profile",
+  "users/user-profile",
   async (userId, { rejectWithValue, getState, dispatch }) => {
     // make request
     try {
@@ -101,7 +101,7 @@ export const userPrivateProfileAction = createAsyncThunk(
       };
       const { data } = await axios.get(
         // can be response.data but destructured it into {data}
-        `${BASE_URL}/users/profile`,
+        `${BASE_URL}/users/user-profile`,
         config
       );
       return data;
@@ -473,7 +473,6 @@ const usersSlice = createSlice({
     // handle the fulfilled state
     builder.addCase(userPrivateProfileAction.fulfilled, (state, action) => {
       state.profile = action.payload;
-      state.success = true;
       state.loading = false;
       state.error = null;
     });

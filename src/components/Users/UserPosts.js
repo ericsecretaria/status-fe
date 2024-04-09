@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const UserPosts = ({ posts }) => {
   return (
@@ -13,17 +14,19 @@ const UserPosts = ({ posts }) => {
       />
       <div className="container relative z-10 px-4 mx-auto">
         <div className="mx-auto mb-8 text-center md:max-w-5xl md:mb-16">
-          <span className="inline-block px-2 py-px mb-4 text-xs font-medium leading-5 text-green-500 uppercase bg-green-100 rounded-full shadow-sm">
+          {/* <span className="inline-block px-2 py-px mb-4 text-xs font-medium leading-5 text-green-500 uppercase bg-green-100 rounded-full shadow-sm">
             Your Posts
-          </span>
+          </span> */}
           <h3 className="mb-4 text-3xl font-bold leading-tight tracking-tighter md:text-5xl text-darkCoolGray-900">
-            Top Posts [{posts?.length}]
+            Authored Track(s)
           </h3>
           <p className="mb-10 text-lg font-medium md:text-xl text-coolGray-500">
-            With our integrated CRM, project management, collaboration and
-            invoicing capabilities, you can manage your business in one secure
+            You can manage your business by keeping up to date in a secure
             platform.
           </p>
+          <Link to={"/posts"} className="text-lime-700 italic">
+            Visit all businesses
+          </Link>
         </div>
 
         <div className="flex flex-wrap mb-12 -mx-4 md:mb-20">
@@ -39,12 +42,12 @@ const UserPosts = ({ posts }) => {
                     />
                   </a>
                   <div className="mb-4">
-                    <a
+                    {/* <a
                       className="inline-block px-3 py-1 text-xs font-medium leading-5 text-green-500 uppercase bg-green-100 rounded-full shadow-sm hover:text-green-600 hover:bg-green-200"
                       href="#"
                     >
                       {post?.category?.name}
-                    </a>
+                    </a> */}
                   </div>
                   <p className="mb-2 font-medium text-coolGray-500">
                     {new Date(post?.createdAt).toDateString()}

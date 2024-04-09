@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import Homepage from "./components/Homepage/Homepage";
 import Login from "./components/Users/Login";
 import PublicUserProfile from "./components/Users/PublicUserProfile";
-import PublicNavbar from "./components/Navbar/PublicNavbar";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar";
 import ProtectedRoute from "./components/AuthRoute/ProtectedRoute";
 import AddPost from "./components/Posts/AddPost";
@@ -26,7 +25,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {/* Navbar */}
-      {isLogin ? <PrivateNavbar /> : <PublicNavbar />}
+      {isLogin && <PrivateNavbar />}
 
       <Routes>
         <Route path="/register" element={<Register />}></Route>

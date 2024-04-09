@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import {
   deletePostAction,
   getPostAction,
@@ -6,35 +6,36 @@ import {
 } from "../../redux/slices/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import PostStats from "./PostStats";
 import calculateReadingTime from "../../utils/calculateReadingTime";
 import AddComment from "../Comments/AddComment";
+import AddTarget from "../Targets/AddTarget";
+import { Dialog, Transition } from "@headlessui/react";
 
 const PostDetails = () => {
   //! navigation
   const navigate = useNavigate();
   //! redux store
   const dispatch = useDispatch();
-  const { post, error, loading, success } = useSelector(
-    (state) => state?.posts
-  );
+  const { post, error } = useSelector((state) => state?.posts);
+  //! Get the creator of the post
+  const creator = post?.post?.author?._id?.toString();
   //! Get Params
   const { postId } = useParams();
   //dispatch
   useEffect(() => {
     dispatch(getPostAction(postId));
-  }, [dispatch, postId, post?.post?.likes.length, post?.post?.likes.length]);
+  }, [dispatch, postId, post?.post?.likes.length, creator]);
   //   console.log(post);
 
   //! Post view
   useEffect(() => {
     dispatch(postViewCountAction(postId));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  //! Get the creator of the post
-  const creator = post?.post?.author?._id?.toString();
   //! Get the login user
   const { userAuth } = useSelector((state) => state?.users);
   const loginUser = userAuth?.userInfo?._id?.toString();
@@ -43,10 +44,21 @@ const PostDetails = () => {
   //! Delete Post Handler
   const deletePostHandler = () => {
     dispatch(deletePostAction(postId));
-    if (success) {
-      navigate("/posts");
-    }
+    navigate("/user-profile");
+    window.scrollTo(0, 0);
+    window.location.reload();
   };
+  // const [open, setOpen] = useState(true);
+  // const handleOpen = () => setOpen(!open);
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
   return (
     <>
       {error ? (
@@ -62,16 +74,18 @@ const PostDetails = () => {
         >
           <div className="container px-4 mx-auto">
             <div className="mx-auto mb-12 text-center md:max-w-2xl">
-              <div className="inline-block px-3 py-1 mb-6 text-xs font-medium leading-5 text-green-500 uppercase bg-green-100 rounded-full shadow-sm">
+              {/* <div className="inline-block px-3 py-1 mb-6 text-xs font-medium leading-5 text-green-500 uppercase bg-green-100 rounded-full shadow-sm">
                 {post?.post?.category?.name}
-              </div>
+              </div> */}
               <div className="flex items-center justify-center">
                 <p className="inline-block font-medium text-green-500">
-                  {post?.post?.author?.username}
+                  {/* {post?.post?.author?.username} */}
+                  Status Tracking for
                 </p>
                 <span className="mx-1 text-green-500">•</span>
                 <p className="inline-block font-medium text-green-500">
-                  {new Date(post?.post?.createdAt).toDateString()}
+                  {/* {new Date(post?.post?.createdAt).toDateString()} */}
+                  {post?.post?.trackMonth}
                 </p>
               </div>
               <h2 className="mb-4 text-3xl font-bold leading-tight tracking-tighter md:text-5xl text-darkCoolGray-900">
@@ -85,8 +99,8 @@ const PostDetails = () => {
                 <div className="w-auto px-2">
                   <img
                     className="w-12 h-12 rounded-full"
-                    src={post?.post?.image}
-                    alt="post-image"
+                    src={post?.post?.author?.profilePicture}
+                    alt="post-beside-username"
                   />
                 </div>
                 <div className="w-auto px-2">
@@ -98,9 +112,9 @@ const PostDetails = () => {
             </div>
           </div>
           <img
-            className="w-full mx-auto mb-4 mb-10"
+            className="w-8/12 mx-auto mb-4 mb-10"
             src={post?.post?.image}
-            alt="post-image"
+            alt="post-cover"
           />
 
           <div
@@ -154,7 +168,8 @@ const PostDetails = () => {
                   </Link>
                   {/* delete */}
                   <button
-                    onClick={deletePostHandler}
+                    // onClick={deletePostHandler}
+                    onClick={openModal}
                     className="p-2 text-gray-500 hover:text-gray-700"
                   >
                     <svg
@@ -174,12 +189,74 @@ const PostDetails = () => {
                   </button>
                 </div>
               )}
-              <h3 className="mb-4 text-2xl font-semibold md:text-3xl text-coolGray-800">
-                Add a comment
-              </h3>
 
+              {/* Target form */}
+              <AddTarget postId={postId} targets={post?.post?.targets} />
               {/* Comment form */}
               <AddComment postId={postId} comments={post?.post?.comments} />
+
+              <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <div className="fixed inset-0 bg-black/25" />
+                  </Transition.Child>
+
+                  <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                      <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                          <Dialog.Title
+                            as="h3"
+                            className="text-lg font-medium leading-6 text-gray-900"
+                          >
+                            Delete Business Track?
+                          </Dialog.Title>
+                          <div className="mt-2">
+                            <p className="text-sm text-gray-500">
+                              By continuing this process, it will lose evrything
+                              for "{post?.post?.title}"
+                            </p>
+                          </div>
+
+                          <div className="flex flex-row mt-4">
+                            <button
+                              type="button"
+                              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                              onClick={deletePostHandler}
+                            >
+                              Proceed
+                            </button>
+
+                            <button
+                              type="button"
+                              className="inline-flex justify-center rounded-md border border-transparent bg-white-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                              onClick={closeModal}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </Dialog.Panel>
+                      </Transition.Child>
+                    </div>
+                  </div>
+                </Dialog>
+              </Transition>
             </div>
           </div>
         </section>

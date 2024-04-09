@@ -43,8 +43,8 @@ export const createCommentAction = createAsyncThunk(
 );
 
 //**************! ----------- Comments Slices -----------  *************
-const postSlice = createSlice({
-  name: "posts",
+const commentSlice = createSlice({
+  name: "comments",
   initialState: INITIAL_STATE,
   extraReducers: (builder) => {
     //create comment
@@ -76,6 +76,6 @@ const postSlice = createSlice({
 });
 
 //! Generate Reducer
-const commentReducer = postSlice.reducer;
+const commentReducer = commentSlice.reducer;
 
 export default commentReducer;

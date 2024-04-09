@@ -74,7 +74,7 @@ const PasswordResetRequest = () => {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+          <button className="w-full px-4 py-2 text-white bg-lime-500 rounded-lg hover:bg-lime-400 focus:outline-none">
             Send reset link
           </button>
         )}

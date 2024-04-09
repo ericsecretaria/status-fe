@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
+
 import { addPostAction } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccessMsg from "../Alert/SuccessMsg";
 import { uploadCoverImageAction } from "../../redux/slices/users/usersSlices";
+import { useNavigate } from "react-router-dom";
 
 const UploadCoverImage = () => {
+  const navigate = useNavigate();
   //fetch categories
   const dispatch = useDispatch();
   //! Error state
@@ -52,6 +54,11 @@ const UploadCoverImage = () => {
     }
   };
 
+  const redirectCoverImageHandler = () => {
+    navigate("/user-profile");
+    window.location.reload();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <form onSubmit={handleSubmit} className="w-full lg:w-1/2">
@@ -62,6 +69,7 @@ const UploadCoverImage = () => {
           {/* Error Here */}
           {/* {error && <ErrorMsg message={error?.message} />}
           {success && <SuccessMsg message="Post created successfully" />} */}
+
           <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
             Upload or update Cover Image
           </h3>
@@ -84,12 +92,13 @@ const UploadCoverImage = () => {
             <LoadingComponent />
           ) : (
             <button
-              className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
+              className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-lime-500 hover:bg-lime-400 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
               type="submit"
             >
               Upload Cover Image
             </button>
           )}
+          {success && redirectCoverImageHandler()}
         </div>
       </form>
     </div>

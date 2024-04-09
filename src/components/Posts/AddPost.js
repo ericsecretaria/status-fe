@@ -1,49 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
-import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
 import { addPostAction } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
-import ErrorMsg from "../Alert/ErrorMsg";
-import SuccessMsg from "../Alert/SuccessMsg";
+import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
+  const navigate = useNavigate();
   //fetch categories
   const dispatch = useDispatch();
   //! Error state
   const [errors, setErrors] = useState({});
-  //get data from store
-  const { categories } = useSelector((state) => state?.categories);
 
-  const options = categories?.categories?.map((category) => {
-    return {
-      value: category?._id,
-      label: category?.name,
-    };
-  });
   //! Get post from store
-  const { post, error, loading, success } = useSelector(
-    (state) => state?.posts
-  );
-
-  useEffect(() => {
-    dispatch(fetchCategoriesAction());
-  }, [dispatch]);
+  const { loading, success } = useSelector((state) => state?.posts);
 
   const [formData, setFormData] = useState({
     title: "",
+    released: "",
     image: null,
-    category: null,
-    content: "",
+    targetAmount: "",
+    trackMonth: "",
   });
 
   //1. Validate form
   const validateForm = (data) => {
     let errors = {};
-    if (!data.title) errors.title = "Title is required";
-    if (!data.image) errors.image = "Image is required";
-    if (!data.category) errors.category = "Category is required";
-    if (!data.content) errors.content = "Content is required";
+    if (!data.title) errors.title = "This field is required";
+    if (!data.released) errors.released = "This field is required";
+    if (!data.image) errors.image = "This field is required";
+    if (!data.targetAmount) errors.targetAmount = "This field is required";
+    if (!data.trackMonth) errors.trackMonth = "This field is required";
     return errors;
   };
   //2. Handle Blur
@@ -55,11 +41,6 @@ const AddPost = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  //! React select handle change
-  const handleSelectChange = (selectedOption) => {
-    setFormData({ ...formData, category: selectedOption.value });
   };
 
   //! Handle image change
@@ -79,94 +60,127 @@ const AddPost = () => {
 
       setFormData({
         title: "",
+        released: "",
         image: null,
-        category: null,
-        content: "",
+        targetAmount: "",
+        trackMonth: "",
       });
     }
   };
 
+  //! Redirect Post Handler
+  const redirectPostHandler = () => {
+    navigate("/posts");
+    window.scrollTo(0, 0);
+    window.location.reload();
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="w-full lg:w-1/2">
-        <div className="flex flex-col items-center p-10 xl:px-24 xl:pb-12 bg-white lg:max-w-xl lg:ml-auto rounded-4xl shadow-2xl">
-          <h2 className="mb-4 text-2xl md:text-3xl text-coolGray-900 font-bold text-center">
-            Add New Post
-          </h2>
-          {/* Error Here */}
-          {error && <ErrorMsg message={error?.message} />}
-          {success && <SuccessMsg message="Post created successfully" />}
-          <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
-            Share your thoughts and ideas with the community
-          </h3>
-          <label className="mb-4 flex flex-col w-full">
-            <span className="mb-1 text-coolGray-800 font-medium">Title</span>
-            <input
-              className="py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-lg shadow-sm"
-              type="text"
-              placeholder="Enter the post title"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {/* error here */}
-            {errors?.title && <p className="text-red-500">{errors.title}</p>}
-          </label>
-          <label className="mb-4 flex flex-col w-full">
-            <span className="mb-1 text-coolGray-800 font-medium">Image</span>
-            <input
-              className="py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-lg shadow-sm"
-              type="file"
-              name="image"
-              onChange={HandleFileChange}
-              onBlur={handleBlur}
-            />
-            {/* error here */}
-            {errors?.image && <p className="text-red-500">{errors.image}</p>}
-          </label>
-          {/* category here */}
-          <label className="mb-4 flex flex-col w-full">
-            <span className="mb-1 text-coolGray-800 font-medium">category</span>
-            <Select
-              options={options}
-              name="category"
-              onChange={handleSelectChange}
-              onBlur={handleBlur}
-            />
-            {/* error here */}
-            {errors?.category && (
-              <p className="text-red-500">{errors.category}</p>
-            )}
-          </label>
-          <label className="mb-4 flex flex-col w-full">
-            <span className="mb-1 text-coolGray-800 font-medium">Content</span>
-            <textarea
-              className="py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-lg shadow-sm"
-              placeholder="Write your post content"
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors?.content && (
-              <p className="text-red-500">{errors.content}</p>
-            )}
-          </label>
-          {/* button */}
-          {loading ? (
-            <LoadingComponent />
-          ) : (
-            <button
-              className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
-              type="submit"
-            >
-              Post
-            </button>
-          )}
+    <>
+      <section class="bg-white">
+        <div class="flex flex-col items-center justify-center mx-auto md:h-screen top-0">
+          <div class="bg-white rounded-lg shadow shadow-2xl dark:border md:mt-24 dark:border-coolGray-700">
+            <div class="md:p-18">
+              <h1 class="text-2xl md:text-3xl text-coolGray-900 font-bold text-center p-8">
+                Let's Get Started
+              </h1>
+              <form class="w-full px-16 py-10 pt-0" onSubmit={handleSubmit}>
+                <div className="pt-5">
+                  <span className="mb-1 text-coolGray-800 font-medium">
+                    Make / Brand / Model
+                  </span>
+                  <input
+                    className="placeholder:italic py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50 rounded-lg shadow-sm"
+                    type="text"
+                    placeholder="e.g. CHEVROLET-CAMARO"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required=""
+                  />
+                </div>
+                <div className="pt-5">
+                  <span className="mb-1 text-coolGray-800 font-medium">
+                    Released / Received Unit
+                  </span>
+                  <input
+                    className="placeholder:italic py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50 rounded-lg shadow-sm"
+                    type="date"
+                    // placeholder="e.g. February 27 2024"
+                    name="released"
+                    value={formData.released}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required=""
+                  />
+                </div>
+                <div className="pt-5">
+                  <span className="mb-1 text-coolGray-800 font-medium">
+                    Image
+                  </span>
+                  <input
+                    className="placeholder:italic py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50 rounded-lg shadow-sm"
+                    type="file"
+                    name="image"
+                    onChange={HandleFileChange}
+                    onBlur={handleBlur}
+                    required=""
+                  />
+                </div>
+                <div className="pt-5">
+                  <span className="mb-1 text-coolGray-800 font-medium">
+                    Target Amount
+                  </span>
+                  <input
+                    className="placeholder:italic py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50 rounded-lg shadow-sm"
+                    type="number"
+                    min="1"
+                    max="999999"
+                    placeholder="e.g. 17000"
+                    name="targetAmount"
+                    value={formData.targetAmount}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required=""
+                  />
+                </div>
+                <div className="pt-5">
+                  <span className="mb-1 text-coolGray-800 font-medium">
+                    Track Month
+                  </span>
+                  <input
+                    className="placeholder:italic py-3 px-3 leading-5 w-full text-coolGray-400 font-normal border border-coolGray-200 outline-none focus:ring-2 focus:ring-lime-500 focus:ring-opacity-50 rounded-lg shadow-sm"
+                    type="date"
+                    // placeholder="e.g. April"
+                    name="trackMonth"
+                    value={formData.trackMonth}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required=""
+                  />
+                </div>
+                <p className="italic mb-7 text-base md:text-sm text-red-500 font-medium text-center">
+                  (Note: This is just to know the Month you need to track)
+                </p>
+
+                {loading ? (
+                  <LoadingComponent />
+                ) : (
+                  <button
+                    className="mb-4 inline-block py-3 px-7 w-full leading-6 text-white font-medium text-center bg-lime-500 hover:bg-lime-400 focus:ring-2 focus:ring-lime-400 focus:ring-opacity-50 rounded-md"
+                    type="submit"
+                  >
+                    Save and Check status
+                  </button>
+                )}
+                {success && redirectPostHandler()}
+              </form>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
+      </section>
+    </>
   );
 };
 

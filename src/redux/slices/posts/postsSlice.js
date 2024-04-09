@@ -206,8 +206,9 @@ export const addPostAction = createAsyncThunk(
       // convert the payload to formdata
       const formData = new FormData();
       formData.append("title", payload?.title);
-      formData.append("content", payload?.content);
-      formData.append("categoryId", payload?.category);
+      formData.append("released", payload?.released);
+      formData.append("targetAmount", payload?.targetAmount);
+      formData.append("trackMonth", payload?.trackMonth);
       formData.append("file", payload?.image);
 
       const token = getState().users?.userAuth?.userInfo?.token;
@@ -238,8 +239,9 @@ export const updatePostAction = createAsyncThunk(
       // convert the payload to formdata
       const formData = new FormData();
       formData.append("title", payload?.title);
-      formData.append("content", payload?.content);
-      formData.append("categoryId", payload?.category);
+      formData.append("released", payload?.released);
+      formData.append("targetAmount", payload?.targetAmount);
+      formData.append("trackMonth", payload?.trackMonth);
       formData.append("file", payload?.image);
 
       const token = getState().users?.userAuth?.userInfo?.token;

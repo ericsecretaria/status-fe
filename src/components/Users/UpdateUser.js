@@ -7,10 +7,14 @@ import { updateUserProfileAction } from "../../redux/slices/users/usersSlices";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccessMsg from "../Alert/SuccessMsg";
+import { CgCloseO } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 const UpdateUser = () => {
   //! Dispatch
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -43,48 +47,62 @@ const UpdateUser = () => {
   //const user = useSelector((state) => state);
   //console.log(user); suppose to be state.users.userinfo but destructure it.
   const { loading, error, success } = useSelector((state) => state?.users);
+  const cancelUpdateProfileHandler = () => {
+    navigate("/user-profile");
+  };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center min-h-screen bg-gray-50"
-    >
-      <div className="w-96 p-6 bg-white rounded-xl shadow-md">
-        <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
-          Update your Profile
-        </h1>
-        {error && <ErrorMsg message={error?.message} />}
-        {success && <SuccessMsg message="Profile updated, login back again" />}
-        <div className="mb-4 relative">
-          <AiOutlineUser className="absolute text-gray-500 text-2xl top-2 left-2" />
-          <input
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            type="text"
-            placeholder="Update your username"
-            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-6 relative">
-          <AiOutlineMail className="absolute text-gray-500 text-2xl top-2 left-2" />
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            type="email"
-            placeholder="Update your email"
-            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        {loading ? (
-          <LoadingComponent />
-        ) : (
-          <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
-            Update Profile
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center justify-center min-h-screen bg-gray-50"
+      >
+        <div className="w-96 p-6 bg-white rounded-xl shadow-md">
+          <button onClick={cancelUpdateProfileHandler}>
+            <CgCloseO className="mb-5" size={20} />
           </button>
-        )}
-      </div>
-    </form>
+
+          <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
+            Update your Profile
+          </h1>
+          {error && <ErrorMsg message={error?.message} />}
+          {success && (
+            <SuccessMsg message="Profile updated, login back again" />
+          )}
+          <div className="mb-4 relative">
+            <AiOutlineUser className="absolute text-gray-500 text-2xl top-2 left-2" />
+            <input
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              type="text"
+              placeholder="Update your username"
+              className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-6 relative">
+            <AiOutlineMail className="absolute text-gray-500 text-2xl top-2 left-2" />
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              type="email"
+              placeholder="Update your email"
+              className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          {loading ? (
+            <LoadingComponent />
+          ) : (
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-white bg-lime-500 rounded-lg hover:bg-lime-400 focus:outline-none"
+            >
+              Update Profile
+            </button>
+          )}
+        </div>
+      </form>
+    </>
   );
 };
 

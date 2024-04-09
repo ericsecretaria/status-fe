@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { verifyAccountAction } from "../../redux/slices/users/usersSlices";
+import { logoutAction } from "../../redux/slices/users/usersSlices";
+
 export default function AccountVerification() {
   //! Get the token from the urk
   const { token } = useParams();
@@ -17,6 +19,13 @@ export default function AccountVerification() {
     }
   }, [dispatch, token]);
 
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    dispatch(logoutAction());
+    navigate("/", { replace: true });
+    //reload
+    window.location.reload();
+  };
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -32,7 +41,10 @@ export default function AccountVerification() {
               Thank you for verifying your email address. You may now proceed to
               login.
             </p>
-            <button className="mt-8 px-8 py-3 text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none">
+            <button
+              onClick={logoutHandler}
+              className="mt-8 px-8 py-3 text-white bg-lime-500 rounded-full hover:bg-lime-400 focus:outline-none"
+            >
               Log in
             </button>
           </>

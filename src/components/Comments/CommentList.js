@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 const CommentsList = ({ comments }) => {
   return (
     <div className="flex flex-col space-y-4 mt-5">
       <div className="flex space-x-4">
         <div className="flex-none">
-          <img
-            src="https://via.placeholder.com/50"
+          {/* <img
+            src={userAuth?.userInfo?.profilePicture}
             alt="avatar"
             className="rounded-full h-12 w-12"
-          />
+          /> */}
         </div>
         <div className="flex-grow">
           <div>
@@ -24,7 +24,7 @@ const CommentsList = ({ comments }) => {
                         <h4 className="text-sm font-medium text-blue-600">
                           {comment?.author?.username}
                         </h4>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-400">
                           {new Date(comment?.createdAt).toDateString()}
                         </p>
                       </div>
