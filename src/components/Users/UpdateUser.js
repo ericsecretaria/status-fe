@@ -48,11 +48,12 @@ const UpdateUser = () => {
   const cancelUpdateProfileHandler = () => {
     navigate("/user-profile");
   };
+  // mt-5 md:h-screen md:mt-0
   return (
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center bg-gray-50 mx-auto h-screen"
+        className="flex flex-col items-center justify-center bg-gray-50 mx-auto h-[70vh]"
       >
         <div className="text-center px-5 py-5 md:max-w-md mx-auto rounded-xl shadow-md">
           <button className="ml-56 mb-5" onClick={cancelUpdateProfileHandler}>
