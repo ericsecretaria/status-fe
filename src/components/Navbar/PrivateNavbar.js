@@ -210,32 +210,24 @@ export default function PrivateNavbar() {
               <div className="mt-3 z-40 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Disclosure.Button
                   onClick={profileHandler}
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Profile
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={businessesHandler}
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Businesses
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={settingsHandler}
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Settings
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={logoutHandler}
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Sign out
