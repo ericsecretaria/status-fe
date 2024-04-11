@@ -15,9 +15,9 @@ const TargetsList = ({ targets }) => {
       <div className="flex space-x-4">
         <div className="flex-grow">
           <div>
-            <div class="flex mb-0 text-center bg-gray-50 dark:bg-gray-700 dark:text-lime-400 font-semibold text-xs uppercase h-10 pt-3">
-              <div class="w-1/3 bg-white-500">Latest Customers</div>
-              <div class="w-1/3 bg-white-500">Rent Amount</div>
+            <div class="flex mb-0 text-center bg-gray-50 dark:bg-gray-700 dark:text-lime-400 font-semibold text-xs uppercase h-10 pt-3 italic">
+              <div class="w-1/3 bg-white-500">Customers</div>
+              <div class="w-1/3 bg-white-500">Amount</div>
               <div class="w-1/3 bg-white-500">Action</div>
             </div>
 

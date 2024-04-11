@@ -12,6 +12,7 @@ import calculateReadingTime from "../../utils/calculateReadingTime";
 import AddComment from "../Comments/AddComment";
 import AddTarget from "../Targets/AddTarget";
 import { Dialog, Transition } from "@headlessui/react";
+import moment from "moment";
 
 const PostDetails = () => {
   //! navigation
@@ -59,6 +60,10 @@ const PostDetails = () => {
   function openModal() {
     setIsOpen(true);
   }
+
+  const dateInpuptFormatted = moment(post?.post?.trackMonth).format(
+    "MMMM Do YYYY"
+  );
   return (
     <>
       {error ? (
@@ -80,12 +85,11 @@ const PostDetails = () => {
               <div className="flex items-center justify-center">
                 <p className="inline-block font-medium text-green-500">
                   {/* {post?.post?.author?.username} */}
-                  Status Tracking for
+                  Status Tracking
                 </p>
                 <span className="mx-1 text-green-500">•</span>
                 <p className="inline-block font-medium text-green-500">
-                  {/* {new Date(post?.post?.createdAt).toDateString()} */}
-                  {post?.post?.trackMonth}
+                  {dateInpuptFormatted}
                 </p>
               </div>
               <h2 className="mb-4 text-3xl font-bold leading-tight tracking-tighter md:text-5xl text-darkCoolGray-900">
@@ -141,7 +145,7 @@ const PostDetails = () => {
           <div className="container px-4 mx-auto">
             <div className="mx-auto md:max-w-3xl">
               <p className="pb-10 mb-8 text-lg font-medium border-b md:text-xl text-coolGray-500 border-coolGray-100">
-                {post?.post?.content}
+                {/* {post?.post?.content} */}
               </p>
               {/* delete and update icons */}
               {isCreator && (

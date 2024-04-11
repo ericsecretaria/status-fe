@@ -91,7 +91,7 @@ export default function PublicUserProfile() {
                       </div>
                       <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                         {/* user Views */}
-                        <button
+                        {/* <button
                           type="button"
                           className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                         >
@@ -116,7 +116,7 @@ export default function PublicUserProfile() {
                             />
                           </svg>
                           20
-                        </button>
+                        </button> */}
                         {/* block and unblock */}
                         {hasBlocked ? (
                           <button

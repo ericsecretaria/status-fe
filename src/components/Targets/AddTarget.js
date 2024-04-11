@@ -122,7 +122,7 @@ const AddTarget = ({ postId, targets }) => {
           <form class="w-full " onSubmit={handleSubmit}>
             <div class="flex items-center border-b border-gray-500 py-2">
               <input
-                class="placeholder-lime-500 appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                class="placeholder-lime-500 text-xs italic bg-transparent border-none w-full text-gray-700 py-1 leading-tight focus:outline-none"
                 type="text"
                 placeholder="Customer's Name"
                 value={formData.renter}
@@ -130,7 +130,7 @@ const AddTarget = ({ postId, targets }) => {
                 name="renter"
               />
               <input
-                class="placeholder-lime-500 appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                class="placeholder-lime-500 text-xs italic bg-transparent border-none w-full text-gray-700 py-1 leading-tight focus:outline-none"
                 type="number"
                 placeholder="Rent Amount"
                 value={formData.rentAmount}
@@ -138,7 +138,7 @@ const AddTarget = ({ postId, targets }) => {
                 name="rentAmount"
               />
               <button
-                class="flex-shrink-0 bg-gray-700 hover:bg-gray-500 border-gray-700 hover:border-gray-500 text-sm border-4 text-white py-1 px-2 rounded"
+                class="bg-gray-700 hover:bg-gray-500 border-gray-700 hover:border-gray-500 text-sm border-4 text-white py-1 px-2 rounded"
                 type="submit"
               >
                 Add

@@ -80,12 +80,7 @@ const UpdatePost = () => {
               {/* <h1 class="text-2xl md:text-3xl text-coolGray-900 font-bold text-center p-8">
                 Let's Get Started
               </h1> */}
-              <button
-                className="ml-56 mb-5"
-                onClick={cancelUpdateTargetHandler}
-              >
-                ❌
-              </button>
+              <button onClick={cancelUpdateTargetHandler}>❌</button>
               <p className="italic p-8 text-base md:text-sm text-red-500 font-medium text-center">
                 (Note: Leave boxes empty if it doesn't need to be updated)
               </p>
